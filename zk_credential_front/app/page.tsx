@@ -37,7 +37,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-6 md:p-24">
       <div className="w-full max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         <div className="p-8">
-          <h1 className="text-2xl font-bold text-center mb-8">zkCred — Credenciais verificáveis com Zero-Knowledge</h1>
+          <h1 className="text-2xl font-bold text-center mb-8">zkCredials — Credenciais verificáveis com Zero-Knowledge</h1>
 
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">

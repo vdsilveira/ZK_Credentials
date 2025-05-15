@@ -2,17 +2,17 @@
 pragma solidity ^0.8.13;
 
 import {Script, console} from "forge-std/Script.sol";
-import {Counter} from "../src/Counter.sol";
+import {CredentialsData} from "../src/CredentialsData.sol";
 
-contract CounterScript is Script {
-    Counter public counter;
+contract CredentialsDataS_cript is Script {
+    CredentialsData public credentialsData;
 
     function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
 
-        counter = new Counter();
+        credentialsData = new CredentialsData();
 
         vm.stopBroadcast();
     }
