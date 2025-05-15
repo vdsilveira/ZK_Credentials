@@ -1,0 +1,6 @@
+[package]
+name = "CategoryCPF_Access_prof"
+type = "bin"
+authors = [""]
+
+[dependencies]
