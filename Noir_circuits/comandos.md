@@ -30,3 +30,12 @@ _Com o circuito compilado e a testemunha gerada, estamos prontos para provar._
 ```
 bb prove -b ./target/Validity_proof.json -w ./target/Validity_proof.gz -o ./target
 ```
+```
+bb prove --scheme ultra_honk -b ./target/Validity_proof.json -w ./target/Valid
+ity_proof.gz -o ./target/proof
+```
+### decompactar .gz
+
+```
+nzip -c ./Validity_proof/target/Validity_proof.gz > ./Validity_proof/target/Validity_proof.acir
+```
