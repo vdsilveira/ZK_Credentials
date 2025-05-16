@@ -1,5 +1,5 @@
 [package]
-name = "CategoryCPF_Access_prof"
+name = "CPF_Access_proof"
 type = "bin"
 authors = [""]
 

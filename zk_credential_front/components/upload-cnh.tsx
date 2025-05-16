@@ -5,7 +5,7 @@ import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import type { CNHDataType } from "@/lib/types"
 import Image from "next/image"
-import { createWorker } from 'tesseract.js'
+import { createWorker } from "tesseract.js"
 import { hexlify, randomBytes, keccak256 } from "ethers"
 
 interface UploadCNHProps {
@@ -25,7 +25,6 @@ export function UploadCNH({ walletAddress, onCNHProcessed, setIsLoading, setErro
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0]
 
-      // Verificar se é uma imagem
       if (!selectedFile.type.startsWith("image/")) {
         setError("Por favor, selecione um arquivo de imagem válido.")
         return
@@ -38,55 +37,56 @@ export function UploadCNH({ walletAddress, onCNHProcessed, setIsLoading, setErro
   }
 
   const processImageLocally = async (imageFile: File): Promise<string> => {
-    console.log('Iniciando processamento da imagem...');
-    const worker = await createWorker('por', 1, {
-      logger: m => {
-        console.log('Progresso do Tesseract:', m)
+    console.log("Iniciando processamento da imagem...")
+    const worker = await createWorker("por", 1, {
+      logger: (m) => {
+        console.log("Progresso do Tesseract:", m)
         setProgress(`Processando: ${Math.round(m.progress * 100)}%`)
-      }
+      },
     })
 
     try {
-      console.log('Configurando parâmetros do Tesseract...');
-      // Configurar parâmetros do Tesseract para melhor reconhecimento
+      console.log("Configurando parâmetros do Tesseract...")
       await worker.setParameters({
-        tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:-.',
-        preserve_interword_spaces: '1',
-        tessedit_pageseg_mode: '6', // Assume um bloco uniforme de texto
-        tessjs_create_pdf: '0',
-        tessjs_create_hocr: '0',
-        tessjs_create_tsv: '0',
-        tessjs_create_box: '0',
-        tessjs_create_unlv: '0',
-        tessjs_create_osd: '0',
-      });
+        tessedit_char_whitelist: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:-.",
+        preserve_interword_spaces: "1",
+        tessedit_pageseg_mode: "6",
+        tessjs_create_pdf: "0",
+        tessjs_create_hocr: "0",
+        tessjs_create_tsv: "0",
+        tessjs_create_box: "0",
+        tessjs_create_unlv: "0",
+        tessjs_create_osd: "0",
+      })
 
-      console.log('Iniciando reconhecimento do texto...');
-      const { data: { text } } = await worker.recognize(imageFile)
+      console.log("Iniciando reconhecimento do texto...")
+      const {
+        data: { text },
+      } = await worker.recognize(imageFile)
+
       console.log("Texto bruto extraído pelo Tesseract:", text)
 
       if (!text || text.trim().length === 0) {
-        throw new Error("Não foi possível extrair texto da imagem. Por favor, tente novamente com uma imagem mais clara.");
+        throw new Error("Não foi possível extrair texto da imagem. Por favor, tente novamente com uma imagem mais clara.")
       }
 
-      // Pré-processar o texto antes de enviar
       const processedText = text
-        .replace(/\n+/g, ' ') // Substituir múltiplas quebras de linha por espaço
-        .replace(/\s+/g, ' ') // Substituir múltiplos espaços por um único
-        .replace(/([A-Z])\s+([A-Z])/g, '$1$2') // Juntar letras maiúsculas separadas por espaço
-        .replace(/(\d)\s+(\d)/g, '$1$2') // Juntar números separados por espaço
-        .trim();
+        .replace(/\n+/g, " ")
+        .replace(/\s+/g, " ")
+        .replace(/([A-Z])\s+([A-Z])/g, "$1$2")
+        .replace(/(\d)\s+(\d)/g, "$1$2")
+        .trim()
 
-      console.log("Texto processado antes do envio:", processedText);
-      
+      console.log("Texto processado antes do envio:", processedText)
+
       if (processedText.length < 50) {
-        throw new Error("Texto extraído muito curto. Por favor, tente novamente com uma imagem mais clara.");
+        throw new Error("Texto extraído muito curto. Por favor, tente novamente com uma imagem mais clara.")
       }
 
-      return processedText;
+      return processedText
     } catch (error) {
-      console.error("Erro no processamento da imagem:", error);
-      throw error;
+      console.error("Erro no processamento da imagem:", error)
+      throw error
     } finally {
       await worker.terminate()
     }
@@ -102,37 +102,38 @@ export function UploadCNH({ walletAddress, onCNHProcessed, setIsLoading, setErro
       setIsLoading(true)
       setError(null)
 
-      // Primeiro, processar a imagem localmente
-      console.log('Iniciando processamento da imagem...');
+      console.log("Iniciando processamento da imagem...")
       const extractedText = await processImageLocally(file)
       console.log("Texto final extraído:", extractedText)
 
-      // Enviar o texto extraído para o servidor processar
       const formData = new FormData()
       formData.append("cnh", file)
       formData.append("walletAddress", walletAddress)
       formData.append("extractedText", extractedText)
 
-      console.log("Enviando dados para processamento...");
+      console.log("Enviando dados para processamento...")
       const response = await fetch("/api/process-cnh", {
         method: "POST",
         body: formData,
       })
 
       const responseData = await response.json()
-      console.log("Resposta do servidor:", responseData);
+      console.log("Resposta do servidor:", responseData)
 
       if (!response.ok) {
-        console.error("Erro na resposta do servidor:", responseData);
+        console.error("Erro na resposta do servidor:", responseData)
         throw new Error(responseData.message || "Erro ao processar a CNH")
       }
 
       if (!responseData.nome || !responseData.cpf || !responseData.registroCNH) {
-        console.error("Dados incompletos recebidos:", responseData);
+        console.error("Dados incompletos recebidos:", responseData)
         throw new Error("Não foi possível extrair todos os dados necessários da CNH. Por favor, tente novamente com uma imagem mais clara.")
       }
 
-      console.log("Dados processados com sucesso:", responseData);
+      // ✅ Limpar o CPF deixando apenas números
+      responseData.cpf = responseData.cpf.replace(/\D/g, "")
+
+      console.log("Dados processados com sucesso:", responseData)
       onCNHProcessed(responseData)
     } catch (error: any) {
       console.error("Erro ao fazer upload da CNH:", error)
@@ -148,8 +149,7 @@ export function UploadCNH({ walletAddress, onCNHProcessed, setIsLoading, setErro
       <div className="mb-6 text-center">
         <h2 className="text-xl font-semibold mb-2">Upload da CNH</h2>
         <p className="text-gray-600">
-          Faça o upload de uma imagem clara da sua CNH para extrair os dados. A imagem será processada localmente para
-          garantir sua privacidade.
+          Faça o upload de uma imagem clara da sua CNH para extrair os dados. A imagem será processada localmente para garantir sua privacidade.
         </p>
       </div>
 

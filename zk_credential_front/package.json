@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aztec/bb.js": "^0.86.0",
     "@hookform/resolvers": "^3.9.1",
+    "@noir-lang/noir_js": "^1.0.0-beta.6",
+    "@noir-lang/noir_wasm": "^1.0.0-beta.6",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
     "@radix-ui/react-aspect-ratio": "1.1.1",
@@ -47,6 +50,7 @@
     "ethers": "^6.14.0",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
+    "msgpackr": "^1.11.3",
     "next": "15.2.4",
     "next-themes": "^0.4.4",
     "react": "^18.2.0",
@@ -60,6 +64,7 @@
     "tailwindcss-animate": "^1.0.7",
     "tesseract.js": "^5.0.5",
     "vaul": "^0.9.6",
+    "zkverifyjs": "^0.13.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
