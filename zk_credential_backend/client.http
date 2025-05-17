@@ -1,0 +1,6 @@
+@baseUrl = http://localhost:3000
+
+# @name create_CPF_access_proof
+GET {{baseUrl}}/createProve/cpfAcessProof/123456789
+
+

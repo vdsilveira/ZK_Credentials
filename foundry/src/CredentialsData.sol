@@ -23,34 +23,30 @@ contract CredentialsData {
     mapping (address => CNH_Plaintext) private _UserInfo;
 
     // Função para registrar as provas criptografadas (ex: ZK-SNARKs, hashes, etc)
-    function setProves(
-        bytes memory validaty_prove,
-        bytes memory category_prove,
-        bytes memory cpf_prove,
-        bytes memory birthday_prove
-    ) public {
-        _Proves[msg.sender] = CNH_Proves({
-            validaty: validaty_prove,
-            category: category_prove,
-            cpf: cpf_prove,
-            birthday: birthday_prove
-        });
-    }
+// Prova e valor em texto claro para CPF
+function set_cnh_cpf(bytes memory cpf_prove, uint32 cnh_cpf) public {
+    _Proves[msg.sender].cpf = cpf_prove;
+    _UserInfo[msg.sender].cpf = cnh_cpf;
+}
 
-    // Função para registrar informações em texto claro (para fins de exemplo ou comparação)
-    function setInfo(
-        uint32 cnh_validaty,
-        string memory cnh_category,
-        uint32 cnh_cpf,
-        uint32 cnh_birthday
-    ) public {
-        _UserInfo[msg.sender] = CNH_Plaintext({
-            validaty: cnh_validaty,
-            category: cnh_category,
-            cpf: cnh_cpf,
-            birthday: cnh_birthday
-        });
-    }
+// Prova e valor em texto claro para validade
+function set_cnh_validaty(bytes memory validaty_prove, uint32 cnh_validaty) public {
+    _Proves[msg.sender].validaty = validaty_prove;
+    _UserInfo[msg.sender].validaty = cnh_validaty;
+}
+
+// Prova e valor em texto claro para categoria
+function set_cnh_category(bytes memory category_prove, string memory cnh_category) public {
+    _Proves[msg.sender].category = category_prove;
+    _UserInfo[msg.sender].category = cnh_category;
+}
+
+// Prova e valor em texto claro para data de nascimento
+function set_cnh_birthday(bytes memory birthday_prove, uint32 cnh_birthday) public {
+    _Proves[msg.sender].birthday = birthday_prove;
+    _UserInfo[msg.sender].birthday = cnh_birthday;
+}
+
 
     // Funções getters adicionais 
     function getProves(address user) public view returns (CNH_Proves memory) {
