@@ -1,6 +1,0 @@
-[package]
-name = "CPF_Access_proof"
-type = "bin"
-authors = [""]
-
-[dependencies]

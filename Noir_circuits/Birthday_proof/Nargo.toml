@@ -1,6 +1,0 @@
-[package]
-name = "Birthday_proof"
-type = "bin"
-authors = [""]
-
-[dependencies]

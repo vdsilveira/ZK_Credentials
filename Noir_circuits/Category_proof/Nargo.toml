@@ -1,6 +1,0 @@
-[package]
-name = "Category_proof"
-type = "bin"
-authors = [""]
-
-[dependencies]
