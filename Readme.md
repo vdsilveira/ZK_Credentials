@@ -29,14 +29,7 @@ Sistema de credenciais digitais verificáveis com provas de conhecimento zero (Z
 ---
 
 ## 🎥 Apresentação do Projeto zkCredential
-<div align="center">
-  <video width="640" height="360" controls loop>
-    <source src="https://github.com/vdsilveira/zkVerify_hacktom_zkCredentials/assets/122502607/6d7db9ff-4f8c-46ef-9a89-dcc10dc0d258" type="video/mp4" />
-    Seu navegador não suporta o elemento de vídeo.
-  </video>
-  <p>
-    <a href="https://www.youtube.com/watch?v=XH31LDFI-1M" target="_blank">
-      ▶ Assistir no YouTube
+[![Assista ao pitch](https://img.youtube.com/vi/XH31LDFI-1M/0.jpg)](https://www.youtube.com/watch?v=XH31LDFI-1M)
 
 
 
