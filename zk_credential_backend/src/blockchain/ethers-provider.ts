@@ -8,11 +8,15 @@ export class EthersProvider {
   public readonly contract: ethers.Contract;
 
   constructor() {
+
+    // Node publico da rede sepolia
     const sepoliaUrl = 'https://ethereum-sepolia.publicnode.com';
     this.provider = new ethers.JsonRpcProvider(sepoliaUrl);
 
+    // Private key  exclusiva para o projeto, não será reutilizada 
     const privateKey =
       '41aed8423655d850142db81ff34835282e7604b38187113eca51bedd731efa61';
+
     this.mktWallet = new ethers.Wallet(privateKey, this.provider);
 
     const contractAbi = [
@@ -29,7 +33,7 @@ export class EthersProvider {
       'function getProves(address user) public view returns (tuple(string cpf_prove, string validaty_prove, string category_prove, string birthday_prove))',
       'function getUserInfo(address user) public view returns (tuple(uint32 cpf, uint32 validaty, string category, uint32 birthday))',
     ];
-
+    // Sepolia contract address
     const contractAddress = '0x7f58668495533fD0B54aFB46920F79217A42009C';
 
     // Aqui passe a wallet, para ter capacidade de escrever no contrato, se precisar

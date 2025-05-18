@@ -1,4 +1,4 @@
-# solução  encontrada para roda o bb.js no next
+# solução  encontrada para rodar o bb.js no next
  
  - Usar um middleware de backand com nest.js
  ![middleware](./img/middleware.png)
