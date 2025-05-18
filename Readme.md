@@ -317,8 +317,11 @@ GET /users/credentials
 ```
 
 #### Exemplo de Requisição e Resposta (Backend)
-
+##  localHost
 ![Exemplo de Requisição e Resposta da API](img/middleware.png)
+
+## Render_servidor
+![Exemplo de Requisição e Resposta da API](img/render-serv.png)
 
 ---
 

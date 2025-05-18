@@ -1,9 +1,12 @@
-@baseUrl = http://localhost:5000
+@baseUrl = http://44.227.217.144:10000
+@RenderUrl = https://zk-credentials.onrender.com  
+# backend hospedado  enter Render
+
 
 ### 
 # Criar prova de acesso para CPF
 # @name create_CPF_access_proof
-GET {{baseUrl}}/createProve/cpfAcessProof/123456789
+GET {{RenderUrl}}/createProve/cpfAcessProof/123456789
 
 ## 
 # Verificar prova de acesso para CPF
@@ -16,6 +19,6 @@ GET {{baseUrl}}/createProve/cpfAcessProof/123456789
 # Substitua {wallet_address} pelo endereço real da carteira
 # Busca a prova registrada no smart contract para aquele endereço de carteira
 # @name consult_CPF_access_proof
-GET {{baseUrl}}/Consult/cpf/0xcF1463A5E07920B8e62Ded14FFFAeF5Bf51D9ca1
+GET {{RenderUrl}}/Consult/cpf/0xcF1463A5E07920B8e62Ded14FFFAeF5Bf51D9ca1
 
 ###

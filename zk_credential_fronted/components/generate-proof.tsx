@@ -158,7 +158,7 @@ export function GenerateProof({ cnh, walletAddress, onProofGenerated, setIsLoadi
       const isCpfSelected = selectedFields.cpf
 
       // Construir a URL base
-      let url = "http://localhost:5000/createProve/"
+      let url = "https://zk-credentials.onrender.com/createProve/"
 
       // Adicionar complemento se CPF estiver selecionado
       if (isCpfSelected) {
